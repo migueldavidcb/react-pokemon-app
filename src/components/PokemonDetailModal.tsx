@@ -19,11 +19,11 @@ export default function PokemonDetailModal({
                     <div className="flex flex-row">
                         <div className="basis-2/3">
                             <p><strong>Peso:</strong> {data.weight}</p>
-                            <p><strong>Tipo:</strong> {data.types.map((t: any) => t.type.name).join(", ")}</p>
+                            <p><strong>Tipo:</strong> {data.types.map((t: { type: { name: string } }) => t.type.name).join(", ")}</p>
                             <div>
                                 <strong>Habilidades:</strong>
                                 <ul className="list-disc list-inside">
-                                    {data.abilities.map((a: any, i: number) => (
+                                    {data.abilities.map((a: { ability: { name: string; url: string } }, i: number) => (
                                         <li key={i}>
                                             {a.ability.name}
                                         </li>

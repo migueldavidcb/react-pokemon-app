@@ -1,9 +1,9 @@
 export interface PokemonListResponse {
-    results: PokemonListResult[];
+    results: Pokemon[];
     count: number;
 }
 
-export interface PokemonListResult {
+export interface Pokemon {
     name: string; 
     url: string;
 }
