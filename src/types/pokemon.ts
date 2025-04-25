@@ -1,6 +1,11 @@
 export interface PokemonListResponse {
-    results: { name: string; url: string }[];
+    results: PokemonListResult[];
     count: number;
+}
+
+export interface PokemonListResult {
+    name: string; 
+    url: string;
 }
 
 export interface PokemonDetails {
@@ -9,6 +14,7 @@ export interface PokemonDetails {
     types: { type: { name: string } }[];
     abilities: { ability: { name: string; url: string } }[];
     sprites: { front_default: string };
+    id: number;
 }
 
 export interface AbilityEffect {

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { usePokemonByName, usePokemonsPaginated } from "../hooks/usePokemon";
 import PokemonCard from "./PokemonCard";
 import SearchInput from "./SearchInput";
+import { PokemonListResult } from "@/types/pokemon";
 
 export default function PokemonTable() {
     const [page, setPage] = useState(1);
@@ -15,13 +16,13 @@ export default function PokemonTable() {
     if (isLoadingPaginated || isLoadingByName) return <div>Cargando...</div>;
     if (errorPaginated || errorByName) return <div>Error al cargar.</div>;
 
-    const pokemons = search ? [{
+    const pokemons: PokemonListResult[] | undefined = search ? [{
         name: search,
-        url: `https://pokeapi.co/api/v2/pokemon/${searchData.id}/`
+        url: `https://pokeapi.co/api/v2/pokemon/${searchData?.id}/`
     }] : paginatedData?.results;
 
-    for (let i = 0; i < pokemons.length; i += 2) {
-        grouped.push(pokemons.slice(i, i + 2));
+    for (let i = 0; i < pokemons!.length; i += 2) {
+        grouped.push(pokemons?.slice(i, i + 2));
     }
 
     return (
@@ -29,7 +30,7 @@ export default function PokemonTable() {
             <div className="px-8 mt-6">
                 <SearchInput onSearch={setSearch} />
                 <div className="flex flex-wrap">
-                    {pokemons.map((pokemon: any, i: number) => (
+                    {pokemons?.map((pokemon: any, i: number) => (
                         <div
                             key={i}
                             className="w-full lg:w-1/2 p-2"

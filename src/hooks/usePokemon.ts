@@ -1,8 +1,8 @@
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { fetcher } from "../utils/fetcher";
-import { PokemonDetails } from "@/types/pokemon";
+import { PokemonDetails, PokemonListResponse } from "@/types/pokemon";
 
-export const usePokemonByName = (name: string): UseQueryResult<any, Error> => {
+export const usePokemonByName = (name: string): UseQueryResult<PokemonDetails, Error> => {
   const url = `https://pokeapi.co/api/v2/pokemon/${name}`;
 
   return useQuery({
@@ -12,7 +12,7 @@ export const usePokemonByName = (name: string): UseQueryResult<any, Error> => {
   });
 };
 
-export const usePokemonsPaginated = (page: number, limit: number): UseQueryResult<any, Error> => {
+export const usePokemonsPaginated = (page: number, limit: number): UseQueryResult<PokemonListResponse, Error> => {
   const offset = (page - 1) * limit;
   const url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`;
   return useQuery({
@@ -27,8 +27,4 @@ export const usePokemonDetail = (url: string): UseQueryResult<PokemonDetails, Er
     queryFn: () => fetcher(url),
     enabled: !!url
   });
-};
-
-export const useAbilityDetail = (url: string): UseQueryResult<any, Error> => {
-  return useQuery({ queryKey: ["ability", url], queryFn: () => fetcher(url) });
 };

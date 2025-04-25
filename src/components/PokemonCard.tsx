@@ -1,7 +1,8 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { usePokemonDetail } from "../hooks/usePokemon";
 import PokemonDetailModal from "./PokemonDetailModal";
 import { useImageColor } from "@/hooks/useImageColor";
+import Image from 'next/image'
 
 export default function PokemonCard({ pokemon }: { pokemon: { name: string; url: string } }) {
     const [open, setOpen] = useState(false);
@@ -17,9 +18,11 @@ export default function PokemonCard({ pokemon }: { pokemon: { name: string; url:
                 style={{ backgroundColor: bgColor }}
             >
                 <div className="basis-1/3 place-content-center">
-                    <img
-                        src={data?.sprites.front_default}
-                        alt={pokemon.name}
+                    <Image
+                        src={data?.sprites.front_default || '/fallback.png'}
+                        alt={data?.name || 'Pokemon'}
+                        width={100}
+                        height={100}
                         className="cursor-pointer mx-auto"
                         onDoubleClick={() => setOpen(true)}
                     />
@@ -28,7 +31,7 @@ export default function PokemonCard({ pokemon }: { pokemon: { name: string; url:
                     <span className="w-full">{pokemon.name}</span>
                 </div>
             </div>
-            {open && <PokemonDetailModal data={data} onClose={() => setOpen(false)} />}
+            {open && <PokemonDetailModal data={data!} onClose={() => setOpen(false)} />}
         </>
     );
 }

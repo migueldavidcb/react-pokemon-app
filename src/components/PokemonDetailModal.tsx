@@ -1,9 +1,11 @@
+import { PokemonDetails } from "@/types/pokemon";
+    import Image from 'next/image'
 
 export default function PokemonDetailModal({
     data,
     onClose,
 }: {
-    data: any;
+    data: PokemonDetails;
     onClose: () => void;
 }) {
 
@@ -30,9 +32,11 @@ export default function PokemonDetailModal({
                             </div>
                         </div>
                         <div className="basis-1/4 relative">
-                            <img
-                                src={data?.sprites.front_default}
-                                alt={data?.sprites.front_default}
+                            <Image
+                                src={data?.sprites.front_default || '/fallback.png'}
+                                alt={data?.name || 'Pokemon'}
+                                width={100}
+                                height={100}
                                 className="w-full h-full object-cover"
                             />
                         </div>
